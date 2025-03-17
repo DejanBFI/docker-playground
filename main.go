@@ -21,7 +21,7 @@ func main() {
 
 	size, err := bimg.NewImage(newImage).Size()
 	if size.Width == 120 && size.Height == 120 {
-		fmt.Println("The image size is invalid")
+		fmt.Println("The image size is valid")
 	}
 
 	b := base64.StdEncoding.EncodeToString(newImage)

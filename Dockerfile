@@ -7,8 +7,8 @@ COPY . .
 RUN go build -o main main.go
 
 # https://github.com/GoogleContainerTools/distroless
-FROM gcr.io/distroless/static-debian12:nonroot
-# FROM debian:bookworm-slim
+# FROM gcr.io/distroless/static-debian12:nonroot
+FROM debian:bookworm-slim
 # Copy busybox sh and tee required by entrypoint.sh
 COPY --from=busybox /bin/sh /bin/sh
 COPY --from=busybox /bin/tee /bin/tee
@@ -17,6 +17,12 @@ COPY --from=builder /go/src/builder/main /app/main
 # Copy the libvips binaries and libs
 COPY --from=builder /usr/local/lib /usr/local/lib
 COPY --from=builder /usr/bin/vips* /usr/bin/
+RUN mkdir -p /lib
+# COPY --from=builder /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
+COPY --from=builder /lib/aarch64-linux-gnu /lib/aarch64-linux-gnu
+RUN mkdir -p /usr/lib
+# COPY --from=builder /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --from=builder /usr/lib/aarch64-linux-gnu /usr/lib/aarch64-linux-gnu
 WORKDIR /app
 
 # Copy image. Even though it's not efficient, this is only for testing.
