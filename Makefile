@@ -1,3 +1,7 @@
+.PHONY: vendor
+vendor:
+	go mod tidy && go mod vendor
+
 .PHONY: build
 build:
 	docker build -t dejanbfi/docker-playground .
