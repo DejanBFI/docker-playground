@@ -3,9 +3,8 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
-	"os"
 
-	"github.com/h2non/bimg"
+	"github.com/davidbyttow/govips/v2/vips"
 )
 
 const (
@@ -14,20 +13,23 @@ const (
 )
 
 func main() {
-	buffer, err := bimg.Read("image.jpg")
+	vips.Startup(nil)
+	defer vips.Shutdown()
+
+	img, err := vips.NewImageFromFile("image.jpg")
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		panic(err)
 	}
 
-	newImage, err := bimg.NewImage(buffer).SmartCrop(width, height)
+	err = img.Thumbnail(width, height, vips.InterestingAttention)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		panic(err)
 	}
 
-	size, err := bimg.NewImage(newImage).Size()
-	if size.Width != width || size.Height != height {
-		fmt.Println("The image size is invalid")
-		os.Exit(1)
+	ep := vips.NewDefaultJPEGExportParams()
+	newImage, _, err := img.Export(ep)
+	if err != nil {
+		panic(err)
 	}
 
 	b := base64.StdEncoding.EncodeToString(newImage)

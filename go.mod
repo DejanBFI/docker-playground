@@ -2,4 +2,10 @@ module docker-playground
 
 go 1.23.6
 
-require github.com/h2non/bimg v1.1.9
+require github.com/davidbyttow/govips/v2 v2.16.0
+
+require (
+	golang.org/x/image v0.18.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
+)
