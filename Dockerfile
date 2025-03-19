@@ -13,6 +13,7 @@ FROM gcr.io/distroless/base-debian12:nonroot
 # Copy busybox sh and tee required by entrypoint.sh
 COPY --from=busybox /bin/sh /bin/sh
 COPY --from=busybox /bin/tee /bin/tee
+COPY --from=busybox /bin/ls /bin/ls
 # Copy the server binary
 COPY --from=builder /go/src/builder/main /app/main
 # Copy the libvips binaries and libs
