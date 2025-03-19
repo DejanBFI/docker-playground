@@ -4,7 +4,7 @@ vendor:
 
 GOOS ?= linux
 GOARCH ?= amd64
-CGO_ENABLED ?= 0
+CGO_ENABLED ?= 1
 GIT_URL := $(shell git config --get remote.origin.url)
 GIT_COMMIT_HASH := $(shell git rev-parse HEAD)
 GIT_BRANCH := $(shell git branch --show-current)
