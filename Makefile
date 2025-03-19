@@ -17,7 +17,7 @@ GO_APP_INFO_MOD_NAME=github.com/bfi-finance/bfi-go-pkg
 # default to static build
 GO_BUILD_FLAGS=-trimpath -mod=vendor \
 -tags "osusergo,netgo" \
--ldflags "-extldflags=-static -w -s -v \
+-ldflags "-extldflags=-w -s -v \
 -X '$(GO_APP_INFO_MOD_NAME)/appinfo.GitURL=$(GIT_URL)' \
 -X '$(GO_APP_INFO_MOD_NAME)/appinfo.GitCommitHash=$(GIT_COMMIT_HASH)' \
 -X '$(GO_APP_INFO_MOD_NAME)/appinfo.GitTag=$(GIT_TAG)' \
