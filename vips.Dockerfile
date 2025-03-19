@@ -9,7 +9,7 @@ RUN pipx install meson && pipx install staticx
 RUN wget https://github.com/libvips/libvips/archive/refs/tags/v${LIBVIPS_VERSION}.tar.gz
 RUN tar xf v${LIBVIPS_VERSION}.tar.gz && rm -rf v${LIBVIPS_VERSION}.tar.gz
 WORKDIR /libvips-${LIBVIPS_VERSION}
-RUN meson setup build --libdir lib --prefix /libvips-${LIBVIPS_VERSION}/local
+RUN meson setup build --libdir lib --prefix /libvips-${LIBVIPS_VERSION}/local --default-library static
 WORKDIR /libvips-${LIBVIPS_VERSION}/build
 RUN meson compile
 RUN meson test

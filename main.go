@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
+	"os"
 
 	"github.com/davidbyttow/govips/v2/vips"
 )
@@ -16,7 +17,15 @@ func main() {
 	vips.Startup(nil)
 	defer vips.Shutdown()
 
-	img, err := vips.NewImageFromFile("image.jpg")
+	buf, err := os.ReadFile("image.jpg")
+	if err != nil {
+		panic(err)
+	}
+
+	output := base64.StdEncoding.EncodeToString(buf)
+	os.WriteFile("output.txt", []byte(output), 0644)
+
+	img, err := vips.NewImageFromBuffer(buf)
 	if err != nil {
 		panic(err)
 	}

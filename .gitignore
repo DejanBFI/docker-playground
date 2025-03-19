@@ -16,3 +16,5 @@ coverage.*
 .editorconfig
 .pre-commit-config.yaml
 *.db
+
+output.txt
