@@ -5,8 +5,8 @@ FROM golang:1.23.7-bookworm AS builder
 RUN apt update && apt install --yes libvips libvips-dev libvips-tools
 WORKDIR /go/src/builder
 COPY . .
-RUN go mod tidy && go mod vendor
-RUN go build -o main main.go
+RUN make vendor
+RUN make build
 
 # https://github.com/GoogleContainerTools/distroless
 FROM gcr.io/distroless/base-debian12:nonroot
