@@ -17,7 +17,7 @@ COPY --from=busybox /bin/tee /bin/tee
 COPY --from=builder /go/src/builder/main /app/main
 # Copy the libvips binaries and libs
 COPY --from=builder /usr/lib /usr/lib
-COPY --from=vips-builder /usr/bin/vips* /usr/bin/
+COPY --from=builder /usr/bin/vips* /usr/bin/
 WORKDIR /app
 # Copy image. Even though it's not efficient, this is only for testing.
 COPY image.jpg /app/image.jpg
