@@ -22,21 +22,12 @@ func main() {
 		panic(err)
 	}
 
-	output := base64.StdEncoding.EncodeToString(buf)
-	os.WriteFile("output.txt", []byte(output), 0644)
-
-	img, err := vips.NewImageFromBuffer(buf)
+	img, err := vips.NewThumbnailFromBuffer(buf, width, height, vips.InterestingAttention)
 	if err != nil {
 		panic(err)
 	}
 
-	err = img.Thumbnail(width, height, vips.InterestingAttention)
-	if err != nil {
-		panic(err)
-	}
-
-	ep := vips.NewDefaultJPEGExportParams()
-	newImage, _, err := img.Export(ep)
+	newImage, _, err := img.ExportNative()
 	if err != nil {
 		panic(err)
 	}

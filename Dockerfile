@@ -3,8 +3,6 @@ FROM busybox:1.37.0-uclibc AS busybox
 # Build Go file
 FROM golang:1.23.7-bookworm AS builder
 RUN apt update && apt install --yes libvips libvips-dev libvips-tools
-# ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
-# RUN ldconfig
 WORKDIR /go/src/builder
 COPY . .
 RUN make vendor
